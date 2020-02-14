@@ -1,0 +1,23 @@
+---
+- name: "{{ ansible_distribution | lower }} | {{ ansible_distribution_release }} - Add aliases test line in {{ shell_rc_file }}"
+  lineinfile:
+    path: "{{ shell_rc_file }}"
+    line: "[ -f {{ shell_aliases_file }} ] && source {{ shell_aliases_file }}"
+
+- name: "{{ ansible_distribution | lower }} | {{ ansible_distribution_release }} - Add aliases to {{ shell_aliases_file }}"
+  lineinfile:
+    dest: "{{ shell_aliases_file }}"
+    create: true
+    mode: 0644
+    line: 'alias {{ item.alias }}="{{ item.command }}"'
+    regexp: "^alias {{ item.alias }}="
+  with_items: "{{ shell_aliases }}"
+
+- name: "{{ ansible_distribution | lower }} | {{ ansible_distribution_release }} - Add extra to {{ shell_aliases_file }}"
+  lineinfile:
+    dest: "{{ shell_aliases_file }}"
+    create: true
+    mode: 0644
+    line: "{{ item }}"
+  with_items: "{{ shell_aliases_extra }}"
+  when: activate_shell_aliases_extra|default(false)

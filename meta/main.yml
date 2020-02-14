@@ -1,0 +1,21 @@
+---
+galaxy_info:
+  author: Jeremie CUADRADO
+  role_name: bashaliases
+  description: Ansible role add Bash aliases in bash file you want.
+  license: GPLv3
+  company: Redbeard-Consulting
+  min_ansible_version: 2.9
+
+  platforms:
+    - name: Debian
+      versions:
+        - all
+
+  galaxy_tags:
+    - shell
+    - aliases
+    - cloud
+
+  dependencies:
+    - src: redbeard28.bootstrap
